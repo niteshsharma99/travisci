@@ -1,15 +1,25 @@
-dist: xenial
+sudo: required
 
 language: python
 
-cache: pip
-
 python:
     - "3.8"
-# command to install dependencies
+    
+services:
+    - docker
+
 install:
   - pip install -r requirements.txt
-# command to run tests
 
 script:
- - echo 5
+  - docker build -t nitesh99sharma/python-travis:$TRAVIS_TAG .
+  - docker images 
+
+deploy:
+    provider: script
+    script: bash scripts/deploy.sh
+    on:
+        branch: main
+
+
+
