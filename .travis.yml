@@ -12,8 +12,8 @@ env:
   - GIT_SHA=$(git rev-parse HEAD)
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-- openssl aes-256-cbc -K $encrypted_4e8410560a1c_key -iv $encrypted_4e8410560a1c_iv
-  -in cluster_configuration.sh.enc -out cluster_configuration.sh -d
+- openssl aes-256-cbc -K $encrypted_128424e37458_key -iv $encrypted_128424e37458_iv
+  -in gcp-credentials.json.enc -out gcp-credentials.json -d
 - chmod +x cluster_configuration.sh
 install:
 - pip install -r requirements.txt
