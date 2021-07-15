@@ -1,0 +1,21 @@
+sudo: required
+language: python
+python:
+- '3.8'
+services:
+- docker
+before_install:
+- docker pull python:3-alpine
+install:
+- pip install -r requirements.txt
+script:
+- docker build -t nitesh99sharma/python-travis:$TRAVIS_TAG .
+- docker images
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker push  nitesh99sharma/python-travis:$TRAVIS_TAG
+deploy:
+  provider: heroku
+  api_key:
+    secure: kkUClV2iirLrUpZ0GlY6r127YmvApNjCHFF4HNDQ7muE/4lUy7EWFWRM9FB3pXDyhYtxNxguGQEBh5/sRK4ZC8HYq1Y5jvU/xLLmnRGPMzUU3Wu4dRy1YaPwPaz3Kf5sNjFvBiPwYVdnI3hCwhIppuOoME/VXAxZHFxAEjqJe1770VxqgkA7mL2wwhZJUJffxHHbGsgszZUxyK7C0Pk+gXWMJ4owUwR+q2Ajny1bsV7ZmXF6fbwWjE6NbhFQWdEi6k+fqY5sFk7gIWI3t+RUhww0Qf3fKXFikc41hgbH4OTrc/TsDR13LeQbhDTEAown6zkwt2KxM3VoYI1uk7b/XBVChJk/kfChtLU2ZAMXNcASu4VZFpGtGiKOA0XgzjKcD5zQ3hUdO3NdwVsqAMI3z7jsS3qIcCH3FrmfBR+Lgj8y4hsJic5/hKwJcy0mHngpb3w/ubsNsZ66bwDe86Zwa+gzjcvpSjZv/VNJB3UHiKJWQrY9ZqnOIveA6qv0DdveqYnQd6lV4NW9m5VBnjspblb2kb3G+CdFkb3CacU43MMmx5/icdO/yyUznxYM00gLq/unZzs/l8Ig7zQcddcTEuLWFXup22GCImHSF99nRT3w/vxJEPhC6giuedwZo21qztDYLUndcXyQleCH+AvGO+zFjDOGblVmX4oixGdCPAI=
+  on: main
+  app: python-travis
