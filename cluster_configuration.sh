@@ -1,9 +1,3 @@
-#curl https://sdk.cloud.google.com | bash > /dev/null;
-#source $HOME/google-cloud-sdk/path.bash.inc
-#gcloud components update kubectl
-#gcloud auth activate-service-account --key-file  gcp-credentials.json 
-#gcloud container clusters get-credentials my-k8s-cluster --zone us-central1-c --project nitesh-project-1
-
 echo "-------------------------"
 echo "Installing gcloud CLI "
 curl https://sdk.cloud.google.com | bash > /dev/null;
@@ -21,7 +15,7 @@ echo "-------------------------"
 
 echo "------------------------"
 echo "setup cluster..........."
-gcloud auth activate-service-account --key-file gcp-credentials.json 
+gcloud auth activate-service-account --key-file gcp-credentials.json
 gcloud container clusters get-credentials my-k8s-cluster --zone us-central1-c --project nitesh-project-1
 gcloud config set project project-nitesh1
 echo "--------------------------"
